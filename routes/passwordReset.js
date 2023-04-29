@@ -19,8 +19,8 @@ router.put("/forget",async(req,res)=>{
         let transporter = nodemailer.createTransport({
             service:'gmail',
             auth:{
-                user:"jayaveljsdev@gmail.com",
-                pass:"zmmf srjt xjeg muiv"
+                user:process.env.usermail,
+                pass:process.env.userpass
             }
         })
     
@@ -31,8 +31,6 @@ router.put("/forget",async(req,res)=>{
             html:`<h1>${verificationCode}</h1>`
     
         };
-
-    
         await transporter.sendMail(mailOptions,function(err,info){
             if(err){
                 console.log(err,"transport-Send")
@@ -49,7 +47,6 @@ router.put("/forget",async(req,res)=>{
         console.log(error);
         res.status(500).send()
     }
-   
 })
 
 router.post("/verification",async(req,res)=>{
